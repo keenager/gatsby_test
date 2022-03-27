@@ -1,0 +1,32 @@
+---
+title: "Memo"
+date: "2022-03-27"
+---
+
+### Gatsby's File System Route API [link](https://www.gatsbyjs.com/docs/tutorial/part-6/#render-post-contents-in-the-blog-post-page-template)
+
+#### Key GraphQL Concept: Query Variables
+To use the query variable inside your query, do the following:
+
+1. **Define your query variable.** It should include the variable name (with a $ in front of it) and its GraphQL data type.
+1. **Use the query variable in your query.** (You’ll need to add a $ before the variable name.)
+
+
+When you use Gatsby’s File System Route API, it automatically adds some props into the page template component for each page:
+
+- The id for the data layer node used to create the page.
+- The field you used to create the dynamic part of the route. (In this case, the slug field.)
+
+Under the hood, Gatsby makes both of these values available to use as query variables in your page queries.
+
+```js
+query MyQuery($id: String) {
+  mdx(id: {eq: $id}) {
+    frontmatter {
+      title
+      date(formatString: "MMMM D, YYYY")
+    }
+    body
+  }
+}
+```
